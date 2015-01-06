@@ -3,7 +3,7 @@ window.onload = function(){
 	
 	// Creates game variable and preloads art assets for every scene
     var game = new Core(800, 600);
-	
+	game.preload('assets/shroompogo.jpg');
 	// Creates the different scenes used throughout the game
     var menu_scene = new Scene();
     var play_scene = new Scene();
@@ -14,7 +14,7 @@ window.onload = function(){
 	var howToPlay_label = MakeLabel("How To Play", '16pt tahoma', 'black', 50, 130);
 	var options_label = MakeLabel("Options", '16pt tahoma', 'black', 50, 160);
 	var credits_label = MakeLabel("Credits", '16pt tahoma', 'black', 50, 190);
-	var back_label = MakeLabel("Back", '16pt tahoma', 'black', 0, 300)
+	var back_label = MakeLabel("Back", '16pt tahoma', 'black', 0, 300);
 	
 	var menu_group = new Group();
     game.fps = 30;
@@ -37,7 +37,12 @@ window.onload = function(){
         // -------------------------
 		// Define How To Play Scene
 		// -------------------------
+		var shroom = new Sprite();
+		shroom.image = game.assets['assets/shroompogo.jpg'];
+		shroom.x = 0;
+		shroom.y = 0;
 		play_scene.addChild(back_label);
+		play_scene.addChild(shroom);
 		back_label.addEventListener('touchend', function() {
 			game.popScene();
 		});

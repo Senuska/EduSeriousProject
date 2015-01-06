@@ -10,7 +10,7 @@ window.onload = function(){
     var how_to_play_scene = new Scene();
 	var credits_scene = new Scene();
 	var options_scene = new Scene();
-
+	var main_label = new Label("Main Label");
 	var credit_group = new Group();
     game.fps = 30;
 	
@@ -20,11 +20,16 @@ window.onload = function(){
 		// ----------------------
 		// Define the Menu Scene
 		// ----------------------
+		menu_scene.addChild(main_label);
 		
+		main_label.addEventListener('touchend', function() {
+			game.replaceScene(play_scene);
+		});
+		game.pushScene(menu_scene);
         // -------------------------
 		// Define How To Play Scene
 		// -------------------------
-		
+		play_scene.addChild(new Label("Play Scene"));
 		// -------------------------
 		// Define the Credits Scene
 		// -------------------------

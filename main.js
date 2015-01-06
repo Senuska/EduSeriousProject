@@ -10,8 +10,13 @@ window.onload = function(){
     var how_to_play_scene = new Scene();
 	var credits_scene = new Scene();
 	var options_scene = new Scene();
-	var main_label = new Label("Main Label");
-	var credit_group = new Group();
+	var play_label = MakeLabel("Play", '16pt tahoma', 'black', 50, 100);
+	var howToPlay_label = MakeLabel("How To Play", '16pt tahoma', 'black', 50, 130);
+	var options_label = MakeLabel("Options", '16pt tahoma', 'black', 50, 160);
+	var credits_label = MakeLabel("Credits", '16pt tahoma', 'black', 50, 190);
+	var back_label = MakeLabel("Back", '16pt tahoma', 'black', 0, 300)
+	
+	var menu_group = new Group();
     game.fps = 30;
 	
     game.onload = function(){
@@ -20,16 +25,22 @@ window.onload = function(){
 		// ----------------------
 		// Define the Menu Scene
 		// ----------------------
-		menu_scene.addChild(main_label);
 		
-		main_label.addEventListener('touchend', function() {
-			game.replaceScene(play_scene);
+		menu_scene.addChild(play_label);
+		menu_scene.addChild(howToPlay_label);
+		menu_scene.addChild(options_label);
+		menu_scene.addChild(credits_label);
+		play_label.addEventListener('touchend', function(){
+			game.pushScene(play_scene);
 		});
 		game.pushScene(menu_scene);
         // -------------------------
 		// Define How To Play Scene
 		// -------------------------
-		play_scene.addChild(new Label("Play Scene"));
+		play_scene.addChild(back_label);
+		back_label.addEventListener('touchend', function() {
+			game.popScene();
+		});
 		// -------------------------
 		// Define the Credits Scene
 		// -------------------------
@@ -45,3 +56,13 @@ window.onload = function(){
 	}	
     game.start();
 };
+
+function MakeLabel(text, font, color, x, y) {
+	var tempLabel = new Label(text);
+	tempLabel.font = font;
+	tempLabel.color = color;
+	tempLabel.x = x;
+	tempLabel.y = y;
+	
+	return tempLabel;
+}

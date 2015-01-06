@@ -16,7 +16,6 @@ window.onload = function(){
 	
     game.onload = function(){
 		
-		game.pushScene(menu_scene);
 		
 		// ----------------------
 		// Define the Menu Scene
@@ -38,7 +37,6 @@ window.onload = function(){
 		// Define the Play Scene
 		// ----------------------
 
-		
+	}	
     game.start();
-};
 };

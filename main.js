@@ -12,10 +12,11 @@ window.onload = function(){
 	var credits_scene = new Scene();
 	var options_scene = new Scene();
 	var play_label = MakeLabel("Play", '16pt tahoma', 'black', 50, 100);
+	//var play_button = new Button("Play");
 	var howToPlay_label = MakeLabel("How To Play", '16pt tahoma', 'black', 50, 130);
 	var options_label = MakeLabel("Options", '16pt tahoma', 'black', 50, 160);
 	var credits_label = MakeLabel("Credits", '16pt tahoma', 'black', 50, 190);
-	var back_label = MakeLabel("Back", '16pt tahoma', 'black', 2, 575);
+	var back_label = [MakeLabel("Back", '16pt tahoma', 'black', 2, 575), MakeLabel("Back", '16pt tahoma', 'black', 2, 575), MakeLabel("Back", '16pt tahoma', 'black', 2, 575), MakeLabel("Back", '16pt tahoma', 'black', 2, 575)];
 	var menu_group = new Group();
     game.fps = 30;
 	
@@ -31,17 +32,17 @@ window.onload = function(){
 		// Define the Menu Scene
 		// ----------------------
 		menu_scene.addChild(background[0]);
-		menu_scene.addEventListener('touchend', function() {
-			game.pushScene(howToPlay_scene);
-		});
 		game.pushScene(menu_scene);
 		// -------------------------
 		// Define How To Play Scene
 		// -------------------------
 		howToPlay_scene.addChild(background[1]);
-		howToPlay_scene.addChild(back_label);
+		howToPlay_scene.addChild(back_label[0]);
 		howToPlay_scene.addEventListener('touchend', function() {
 			game.pushScene(play_scene);
+		});
+		back_label[0].addEventListener('touchend', function(){
+			game.popScene();
 		});
 		
 		// -------------------------
@@ -60,8 +61,8 @@ window.onload = function(){
 		// Define the Play Scene
 		// ----------------------
 		play_scene.addChild(background[2]);
-		play_scene.addChild(back_label);
-		back_label.addEventListener('touchend', function(){
+		play_scene.addChild(back_label[1]);
+		back_label[1].addEventListener('touchend', function(){
 			game.popScene();
 		});
 

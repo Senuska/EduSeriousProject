@@ -14,8 +14,9 @@ window.onload = function(){
     var how_to_play_scene = new Scene();
 	var credits_scene = new Scene();
 	var options_scene = new Scene();
-	var testVar = new MixedNumber(10, 0, 36);
-	testVar.toImproperFraction();
+	var testVar = new MixedNumber(0, 1, 8);
+	var testVar2 = new Fraction(1, 7);
+	testVar.addFraction(testVar2);
 	var main_label = new Label(testVar.toString());
 	var credit_group = new Group();
     game.fps = 30;
@@ -86,30 +87,47 @@ function Fraction (numerator, denominator) {
 	this.addFraction = function addFraction(otherFraction) {
 		if (this.denominator == otherFraction.denominator) {
 			this.numerator += otherFraction.numerator;
-			return;
 		}
 		else {
 			var clone = otherFraction.clone();
+			var lcd = 0;
+			var larger;
+			var smaller;
 			
-			//if this is true, clone.denom is a factor of this.denom
-			if (this.denominator % clone.denominator == 0) {
-				var scaleValue = this.denominator / clone.denominator;
-				this.numerator *= scaleValue;
-				this.denominator *= scaleValue;
-				this.addFraction(otherFraction);
+			if (this.denominator < clone.denominator) {
+				larger = clone.denominator;
+				smaller = this.denominator;
 			}
-			//if this is true, this.denom is a factor of clone.denom
-			else if (clone.denominator % this.denominator == 0) {
-				var scaleValue = clone.denominator / this.denominator;
-				this.numerator *= scaleValue;
-				this.denominator *= scaleValue;
-				this.addFraction(otherFraction);
-			}
-			//if we hit this one, that means we need to find the lcd
 			else {
-				
+				larger = this.denominator;
+				smaller = clone.denominator;
 			}
+			
+			for (var i = 1; i < smaller; i++) {
+				if ((larger * i) % smaller == 0) {
+					lcd = larger * i;
+					break;
+				}
+			}
+			if (lcd == 0) {
+				if (this.denominator != smaller) {
+					this.scale(smaller);
+				}
+				else if (clone.denominator != smaller) {
+					clone.scale(smaller);
+				}
+			}
+			else {
+				this.scale(lcd / this.denominator);
+				clone.scale(lcd / clone.denominator);
+			}
+			this.addFraction(clone);
 		}
+	}
+	
+	this.scale = function scale(value) {
+		this.numerator *= value;
+		this.denominator *= value;
 	}
 	
 	//this method returns a copy of the values
@@ -141,6 +159,18 @@ function MixedNumber (wholeNumber, numerator, denominator) {
 		this.fraction.simplify();
 	}
 	
+	//adds a fraction to the current value
+	this.addFraction = function addFraction(otherFraction) {
+		this.fraction.addFraction(otherFraction);
+		this.simplify();
+	}
+	
+	this.addMixedNumber = function addMixedNumber(otherMixedNumber) {
+		this.wholeNumber += otherMixedNumber.wholeNumber;
+		this.fraction.addFraction(otherMixedNumber.fraction);
+		this.simplify();
+	}
+	
 	//this function converts the mixed number into an improper fraction
 	this.toImproperFraction = function toImproperFraction() {
 		for (;this.wholeNumber > 0; this.wholeNumber--)
@@ -154,7 +184,7 @@ function MixedNumber (wholeNumber, numerator, denominator) {
 		//if we have a whole number, then we want to display it
 		if (this.wholeNumber > 0) {
 			temp += this.wholeNumber;
-			//if we have a whole number and a fraction, then add " and 3/4", etc
+			//if we have a whole number and a fraction, then add " and n/d", etc
 			if (this.fraction.numerator > 0)
 				temp += " and " + this.fraction.toString();
 		}
@@ -166,6 +196,7 @@ function MixedNumber (wholeNumber, numerator, denominator) {
 	}
 };
 
+
 //returns the factors for a specified integer in the form of an array
 function getFactorsFor(integer) {
 	var factors = new Array();
@@ -176,4 +207,4 @@ function getFactorsFor(integer) {
 		counter++;
 	}
 	return factors;
-}
+};

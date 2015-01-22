@@ -158,7 +158,7 @@ function DragAndDrop(entity) {
 	});
 }
 
-function FitToScreen(entity) {
+function FitToScreen(entity, game) {
 	var scaleX = game.width / entity.width;
 	var scaleY = game.height / entity.height;
 	

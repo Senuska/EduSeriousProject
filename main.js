@@ -100,7 +100,7 @@ window.onload = function(){
 		DragAndDrop(supply_test.sprite);
 		
 		play_scene.addChild(supply_test.sprite);
-		console.log(supply_test.value.toString());
+		console.log('supply_test value: ' + supply_test.value.toString());
 		
 		/* Back Button */
 		play_scene.addChild(MakeButton('Back', '28pt tahoma', 'dark', 50, 150, 5, game.height - 60, function() {

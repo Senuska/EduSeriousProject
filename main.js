@@ -18,7 +18,7 @@ window.onload = function(){
 	var credits_button = new Button("Credits", "dark", 50, 150);
 	var logo = new Sprite(775, 300);
 	var supplyTest_icon = new Sprite(64, 64);
-	
+	var randomColor_sprite = new Sprite(64, 64);
 	var supply_test = new Supply(supplyTest_icon, 0, new Fraction(1, 2));
 
     game.fps = 30;
@@ -98,8 +98,10 @@ window.onload = function(){
 		// ----------------------
 		play_scene.addChild(background[2]);
 		DragAndDrop(supply_test.sprite);
-		
-		play_scene.addChild(supply_test.sprite);
+		randomColor_sprite.backgroundColor = RandomColor();
+		DragAndDrop(randomColor_sprite);
+		play_scene.addChild(randomColor_sprite);
+		//play_scene.addChild(supply_test.sprite);
 		console.log('supply_test value: ' + supply_test.value.toString());
 		
 		/* Back Button */
@@ -334,6 +336,18 @@ function MakeLabel(text, font, color, x, y) {
 	return tempLabel;
 };
 
+function SetColor(r, g, b) {
+	var tempColor = 'rgb(' + r + ', ' + g + ', ' + b + ')';
+	return tempColor;
+}
+
+function RandomColorValue() {
+	return Math.floor(Math.random()*255);
+};
+function RandomColor() {
+	var tempColor = 'rgb(' + RandomColorValue() + ', ' + RandomColorValue() + ', ' + RandomColorValue() + ')';
+	return tempColor;
+}
 function MakeButton(text, font, theme, height, width, x, y, event) {
 	var tempButton = new Button(text, theme, height, width);
 	tempButton.font = font;

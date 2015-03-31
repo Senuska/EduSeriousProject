@@ -337,6 +337,28 @@ function Stockpile() {
 	/* This is some random shit to help my brain understand Git better. */
 };
 
+/* Initial Obstacle object definition */
+function Obstacle(id) {
+	this.id = id;
+	this.name;
+	this.sprite;
+	
+	switch(id) {
+		case 0:
+			this.name = "Cliff";
+			break;
+		case 1:
+			this.name = "Lava";
+			break;
+		case 2:
+			this.name = "Dark Cave";
+			break;
+		case 3:
+			this.name = "Plane Crash";
+			break;
+	}
+	
+};
 function MakeLabel(text, font, color, x, y) {
 	var tempLabel = new Label(text);
 	tempLabel.font = font;

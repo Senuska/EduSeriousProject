@@ -334,7 +334,7 @@ function SupplyBag(size) {
 };
 
 function Stockpile() {
-	
+	/* This is some random shit to help my brain understand Git better. */
 };
 
 function MakeLabel(text, font, color, x, y) {

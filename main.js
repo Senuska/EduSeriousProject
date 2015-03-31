@@ -19,6 +19,7 @@ window.onload = function(){
 	var logo = new Sprite(775, 300);
 	var supplyTest_icon = new Sprite(64, 64);
 	var randomColor_sprite = new Sprite(64, 64);
+	var stockpile_group = new Group();
 	var supply_test = new Supply(supplyTest_icon, 0, new Fraction(1, 2));
 
     game.fps = 30;
@@ -96,11 +97,17 @@ window.onload = function(){
 		// ----------------------
 		// Define the Play Scene
 		// ----------------------
+		stockpile_group.x = 125;
+		stockpile_group.y = 50;
+		
 		play_scene.addChild(background[2]);
-		DragAndDrop(supply_test.sprite);
+		//DragAndDrop(supply_test.sprite);
 		randomColor_sprite.backgroundColor = RandomColor();
-		DragAndDrop(randomColor_sprite);
-		play_scene.addChild(randomColor_sprite);
+		//DragAndDrop(randomColor_sprite);
+		randomColor_sprite.x = stockpile_group.x;
+		randomColor_sprite.y = stockpile_group.y;
+		stockpile_group.addChild(randomColor_sprite);
+		play_scene.addChild(stockpile_group);
 		//play_scene.addChild(supply_test.sprite);
 		console.log('supply_test value: ' + supply_test.value.toString());
 		
@@ -326,6 +333,10 @@ function SupplyBag(size) {
 	}
 };
 
+function Stockpile() {
+	
+};
+
 function MakeLabel(text, font, color, x, y) {
 	var tempLabel = new Label(text);
 	tempLabel.font = font;
@@ -344,10 +355,12 @@ function SetColor(r, g, b) {
 function RandomColorValue() {
 	return Math.floor(Math.random()*255);
 };
+
 function RandomColor() {
 	var tempColor = 'rgb(' + RandomColorValue() + ', ' + RandomColorValue() + ', ' + RandomColorValue() + ')';
 	return tempColor;
 }
+
 function MakeButton(text, font, theme, height, width, x, y, event) {
 	var tempButton = new Button(text, theme, height, width);
 	tempButton.font = font;
@@ -365,15 +378,15 @@ function MakeSprite(image, width, height) {
 
 function DragAndDrop(entity) {
 	entity.addEventListener(Event.TOUCH_START, function (e) {
-		var deltaX = entity.x - e.x;
-		var deltaY = entity.y - e.y;
+		//var deltaX = entity.x - e.x;
+		//var deltaY = entity.y - e.y;
 		entity.x = e.x;
 		entity.y = e.y;
 	});
 	
 	entity.addEventListener(Event.TOUCH_MOVE, function(e) {
-		var deltaX = entity.x - e.x;
-		var deltaY = entity.y - e.y;
+		//var deltaX = entity.x - e.x;
+		//var deltaY = entity.y - e.y;
 		entity.x = e.x;
 		entity.y = e.y;
 	});
